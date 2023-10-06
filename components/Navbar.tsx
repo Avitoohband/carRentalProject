@@ -1,7 +1,17 @@
+"use client"
+
 import Link from "next/link";
 import Image from "next/image";
+import toast from 'react-hot-toast'
 
 import CustomButton from "./CustomButton";
+
+  const handleSignIn = () => {
+      
+      toast("Sign in is not yet implemented", {
+        icon: "🤌"      
+      });    
+    };
 
 const Navbar = () => {
   return (
@@ -21,7 +31,8 @@ const Navbar = () => {
         title="Sign in"
         btnType="button"
         containerStyles="text-primary-blue
-        rounded-full bg-white min-w-[130px]"/>
+        rounded-full bg-white min-w-[130px]"
+        handleClick={handleSignIn}/>
       </nav>
     </header>
   );

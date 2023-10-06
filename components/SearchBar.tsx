@@ -1,28 +1,17 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
-import {useRouter} from 'next/navigation'
 
-import SearchManufacturer from "./SearchManufacturer";
 import Image from "next/image";
-import path from "path";
-
-const SearchButton = ({ otherClasses }: { otherClasses: string }) => (
-  <button type="submit" className={`-ml-3 z-10 ${otherClasses}`}>
-    <Image
-      src="/magnifying-glass.svg"
-      alt="magnifying glass"
-      width={40}
-      height={40}
-      className="object-contain"
-    />
-  </button>
-);
+import SearchButton from "./SearchButton";
+import SearchManufacturer from "./SearchManufacturer";
 
 const SearchBar = () => {
   const [manufacturer, setManufacturer] = useState("");
   const [model, setModel] = useState("");
   const router = useRouter();
+  const [pending, setpending] = useState(false);
 
   const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -31,7 +20,9 @@ const SearchBar = () => {
       return alert("Please fill in the search bar");
     }
 
+    setpending(true);
     updateSearchParams(model.toLowerCase(), manufacturer.toLowerCase());
+    setTimeout(() => setpending(false), 1000);
   };
 
   const updateSearchParams = (modal: string, manufacturer: string) => {
@@ -62,7 +53,7 @@ const SearchBar = () => {
           manufacturer={manufacturer}
           setManufacturer={setManufacturer}
         />
-        <SearchButton otherClasses="sm:hidden" />
+        <SearchButton otherClasses="sm:hidden" pending={pending} />
       </div>
       <div className="searchbar__item">
         <Image
@@ -80,9 +71,9 @@ const SearchBar = () => {
           placeholder="Tiguan"
           className="searchbar__input"
         ></input>
-        <SearchButton otherClasses="sm:hidden" />
+        <SearchButton otherClasses="sm:hidden" pending={pending} />
       </div>
-      <SearchButton otherClasses="max-sm:hidden" />
+      <SearchButton otherClasses="max-sm:hidden" pending={pending} />
     </form>
   );
 };

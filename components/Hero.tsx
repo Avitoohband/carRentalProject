@@ -2,9 +2,13 @@
 
 import Image from "next/image";
 import CustomButton from "./CustomButton";
+import {useRouter} from 'next/navigation'
 
 const Hero = () => {
-  const handleScroll = () => {};
+  const router = useRouter()
+  const handleScroll = () => {
+    router.push("#discover")
+  };
 
   return (
     <div className="hero">
@@ -24,7 +28,7 @@ const Hero = () => {
       </div>
       <div className="hero__image-container">
         <div className="hero__image">
-          <Image src="/hero.png" alt="hero" fill className="object-contain" />
+          <Image src="/hero.png" alt="hero" priority fill className="object-contain" />
         </div>
         <div className="hero__image-overlay"></div>
       </div>
